@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload</title>
+    
+</head>
+<style>
+    body{overflow-x: auto;word-wrap: break-word;}
+    iframe{
+        height: 100vh;
+    }
+</style>
+<body>
+    <form action="http://localhost:8000/upload" id="form" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" id="input" multiple>
+        <button id="btn">Upload</button>
+    </form>
+    <span id="span"></span>
+    <button id="getFilesBtn"> Get All Files</button>
+    <button id="getFileBtn"> Get File</button>
+    <canvas id="canvas"></canvas>
+    
+</body>
+<script>
+    let buffer
+    form.onsubmit = async (e) => {
+        e.preventDefault()
+        const form = new FormData()
+        form.append("file", input.files[0])
+        form.append("authtoken", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYThkMjlkOTcwYjY4ZTAxMjllN2JiOSIsImlhdCI6MTY1NTMxNDkzNn0.vsT2F9xo_QbrRr4LFdGzAM5k3FckKMGPPmKvBAHVUPE")
+        let data = await fetch("http://localhost:8000/api/files/upload", {
+            method: "POST",
+            body: form
+        })
+        let jsonData = await data.json()
+        console.log(jsonData);
+    }
+    const ctx = canvas.getContext("2d")
+
+    getFilesBtn.onclick = async () => {
+        let data = await fetch("http://localhost:8000/api/files/getfiles", {
+            method: "GET",
+            headers: {
+                authtoken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYThkMjlkOTcwYjY4ZTAxMjllN2JiOSIsImlhdCI6MTY1NTMxNDkzNn0.vsT2F9xo_QbrRr4LFdGzAM5k3FckKMGPPmKvBAHVUPE"
+            }
+        })
+        let jsonData = await data.json()
+        console.log(jsonData);
+        /*let name = jsonData.files[1].name
+        buffer = jsonData.files[1].buffer
+        let type = jsonData.files[1].mimetype
+        let a = arrayBufferToBase64(buffer, type,name );
+        let img = new Image()
+        img.src = a
+        img.onload=()=>{
+            canvas.width = img.width
+            canvas.height = img.height
+            ctx.drawImage(img,0,0,img.width,img.height)
+        }
+*/
+    }
+
+    function arrayBufferToBase64(Arraybuffer, Filetype, fileName) {
+        let binary = '';
+       
+        const bytes = new Uint8Array(Arraybuffer.data);
+        const len = bytes.byteLength;
+        for (let i = 0; i < len; i++) {
+          binary += String.fromCharCode(bytes[i]);
+        }
+        const file = window.btoa(binary);
+        const url = `data:${Filetype};base64,` + file;
+        return url
+        
+        // download the file
+         const a = document.createElement('a');
+          a.href = url;
+          a.download = fileName;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(url);
+      }
+
+      getFileBtn.onclick=async ()=>{
+        console.log("Click");
+        let data = await fetch("http://localhost:8000/api/files/62b5e75adfd3acc8cef207e7", {
+            method: "GET",
+            headers: {
+                authtoken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYThkMjlkOTcwYjY4ZTAxMjllN2JiOSIsImlhdCI6MTY1NTMxNDkzNn0.vsT2F9xo_QbrRr4LFdGzAM5k3FckKMGPPmKvBAHVUPE"
+            }
+        })
+        const ctx = canvas.getContext("2d")
+        let jsonData = await data.json()
+        buffer = jsonData.file.buffer
+        console.log(jsonData);
+        
+        const link = arrayBufferToBase64(jsonData.file.buffer,jsonData.file.mimetype,jsonData.file.name)
+        const win = window.open(link)
+        win.document.write(`<iframe width='100%' style="margin:0px;padding:0px;"  height='100%' src=${link}></iframe>`)
+        win.document.body.style.margin = "0px"
+        win.document.body.style.padding = "0px"
+        win.document.body.style.boxSizing = "border-box"
+        win.document.body.style.overflowX = "hidden"
+        win.document.title = jsonData.file.name
+        
+        
+      }
+</script>
+
+</html>
