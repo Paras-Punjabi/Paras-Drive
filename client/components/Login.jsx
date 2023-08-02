@@ -2,7 +2,6 @@ import React,{useState} from 'react'
 import {useRouter} from 'next/router'
 import { ToastContainer,toast } from 'react-toastify'
 
-
 const Login = ({setLoggedInStatus}) => {
     const [data, setData] = useState({email:"",password:""})
     const router  = useRouter()
@@ -15,7 +14,6 @@ const Login = ({setLoggedInStatus}) => {
           body:JSON.stringify({email:data.email,password:data.password})
         })
         let jsonData = await rawData.json()
-        console.log(jsonData);
         if(jsonData.status){
           localStorage.setItem("authtoken",jsonData.authtoken)
           setLoggedInStatus(true)
@@ -26,7 +24,6 @@ const Login = ({setLoggedInStatus}) => {
               router.push("/")
             },2500)
         }else{
-          console.log("Error Occured");
           toast.error('Error Occured', {
             position: "top-right",
             autoClose: 3000,

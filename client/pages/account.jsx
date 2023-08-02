@@ -30,8 +30,6 @@ const Account = ({setLoggedInStatus}) => {
 
     async function updateProfile(){
       setContentEditable(false)
-      console.log(nameReference.current.innerHTML);
-      console.log(bioReference.current.innerHTML);
       let rawData = await fetch(`${process.env.SERVER_HOSTNAME}/api/user/update`,{
         method:"PUT",
         headers:{
@@ -42,7 +40,6 @@ const Account = ({setLoggedInStatus}) => {
       })
       let json = await rawData.json()
       if(json.status){
-        console.log(json);
         toast.success('Profile Updated Sucessfully!', {
         position: "top-right",autoClose: 2000,hideProgressBar: false,closeOnClick: true,pauseOnHover: false,draggable: true,progress: undefined,});
       }else{

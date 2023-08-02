@@ -3,8 +3,6 @@ import { FiDownload } from "react-icons/fi";
 import {RiDeleteBin5Fill} from 'react-icons/ri'
 import {IoMdOpen} from 'react-icons/io'
 
-
-
 const GIF = ({name,src,remove}) => {
     const [img,setImg] = useState()
     function download(){
@@ -43,7 +41,6 @@ const GIF = ({name,src,remove}) => {
           <IoMdOpen className="cursor-pointer text-xl mr-3" onClick={openInTab} title="Open in new Tab"/>
           <RiDeleteBin5Fill className="cursor-pointer text-xl" onClick={remove} title="Remove"/>
           </div>
-
         </div>
       </div>
     </>
