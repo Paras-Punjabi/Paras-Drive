@@ -10,6 +10,7 @@ const AboutPage = () => {
       "Multer - A Node.Js middleware for handling multipart/form-data which is primarily used for uploading files.",
       "JWT - JsonWebToken is a authentication middleware which is used to securely transfer information over the web between server and client",
       "Bcrypt - It is password hashing algorithm used to create encrypted passwords based on Blowfish cipher.",
+      "Email.Js - This is a JavaScript library that provides a way to send email messages directly from client-side JavaScript code using a simple and easy-to-use API.",
     ])
   return (
     <div className="p-8 rounded-lg title-font  shadow-md">

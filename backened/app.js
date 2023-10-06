@@ -27,7 +27,7 @@ app.use("/api/files",fileRouter);
 
 
 app.get("/",(req,res)=>{
-    res.send("<head><title>Paras Drive Server</title></head><body><h1 style='text-align:center;font-family:monospace; font-size:40px;'>Hello from Server of Paras Drive</h1></body>")
+    res.send("<head><title>Paras Drive Server</title></head><body style='display:flex;justify-content:center;align-items:center;'><h1 style='text-align:center;font-family:monospace; font-size:80px;'>Hello from Server of Paras Drive</h1></body>")
 })
 
 app.post("/upload",uploadFile.single("file"),(req,res)=>{
