@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import Canvas from './canvas'
+import Canvas from './Canvas'
 import PlainText from './PlainText'
 import { FileUploader  } from 'react-drag-drop-files'
 import PDFPage from './PDFPage'
