@@ -23,10 +23,7 @@ void (async ()=>{
         next()
     })
 
-    app.use(cors({
-        origin:"*",
-        methods:["POST","GET","PUT","DELETE"]
-    }))
+    app.use(cors());
 
     app.use("/api/user",userRouter);
     app.use("/api/notes",noteRouter);
