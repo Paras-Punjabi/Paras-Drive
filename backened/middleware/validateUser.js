@@ -1,7 +1,8 @@
-const User = require("../models/user")
+const {ObjectId} = require("bson")
 const jwt = require("jsonwebtoken")
 
 async function validateUser(req,res,next){
+    const User = req.db.collection("user");
     const {authtoken} = req.headers
     try {    
         if(!authtoken){
@@ -10,7 +11,7 @@ async function validateUser(req,res,next){
         }
         else{
             let {id} = jwt.verify(authtoken,process.env.JWT_SECRET)
-            const user = await User.findById(id)
+            const user = await User.findOne({_id:new ObjectId(id)})
             if(!user){
                 res.status(401).json({error:"Please enter correct credentials",status:false})
                 return

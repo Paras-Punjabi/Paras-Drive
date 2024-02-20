@@ -87,7 +87,6 @@ const UserFiles = () => {
           body: form
       })
       let json = await data.json()
-      console.log(json);
       if(json.status){
         toast.success('File Uploaded Sucessfully!', {
         position: "top-right",autoClose: 2000,hideProgressBar: false,closeOnClick: true,pauseOnHover: false,draggable: true,progress: undefined,});
@@ -98,6 +97,7 @@ const UserFiles = () => {
         }
         setDisableBtn(false)
         fetchFiles()
+        setFile(null);
     }
   }
 

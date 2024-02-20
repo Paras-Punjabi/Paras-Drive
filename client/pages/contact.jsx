@@ -10,13 +10,13 @@ const Contact = () => {
 
   useEffect(()=>{
     (function() {
-        emailjs.init('7CkKyBAZTYjKs9Ror');
+        emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_ID);
     })();
   },[]);
 
   async function submitForm(){
     btn.current.disabled = true
-    let res = await emailjs.send("service_s4u9grf","template_47rjp3l",{
+    let res = await emailjs.send(process.env.NEXT_PUBLIC_SERVICE,process.env.NEXT_PUBLIC_TEMPLATE,{
       from_name: name,
       message: message,
       email_id: email,

@@ -1,5 +1,4 @@
-const mongoose = require("mongoose")
-const FileSchema = new mongoose.Schema({
+const FileSchema = {
     user:{
         type:String,
         required:true
@@ -19,6 +18,4 @@ const FileSchema = new mongoose.Schema({
         type:Number,
         required:true
     }
-})
-
-module.exports = mongoose.model("file",FileSchema)
+}

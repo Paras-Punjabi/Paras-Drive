@@ -8,7 +8,6 @@ import Head from 'next/head'
 import {useRouter} from 'next/router'
 import { ToastContainer,toast } from 'react-toastify'
 
-
 const Account = ({setLoggedInStatus}) => {
     const [data, setData] = useState();
     const router = useRouter()
@@ -25,6 +24,7 @@ const Account = ({setLoggedInStatus}) => {
         },
       });
       const json = await rawData.json();
+      console.log(json);
       setData(json);
     }
 
@@ -59,6 +59,10 @@ const Account = ({setLoggedInStatus}) => {
     }
   
     useEffect(() => {
+      if(!localStorage.getItem("authtoken")){
+        router.push("/")
+        return
+      }
       getUser();
     }, []);
   return (
